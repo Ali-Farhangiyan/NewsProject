@@ -1,4 +1,5 @@
-﻿using Domain.Entites;
+﻿using Application.Interfaces;
+using Domain.Entites;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Persistence.Contexts
 {
-    public class DatabaseContext : DbContext
+    public class DatabaseContext : DbContext, IDatabaseContext
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> op):base(op)
         {

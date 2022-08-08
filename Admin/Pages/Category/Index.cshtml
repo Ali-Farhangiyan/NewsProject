@@ -1,0 +1,79 @@
+﻿@page
+@model Admin.Pages.Category.IndexModel
+@{
+}
+
+
+<div class="container">
+
+    
+    <h1>Show All Categories</h1>
+    
+    <a asp-page="Create" class="btn btn-outline-secondary">Add Category</a>
+    <br /><br />
+
+    <div class="dropdown">
+        <button type="button" data-bs-toggle="dropdown" class="dropdown-toggle btn btn-outline-dark">Sorting</button>
+
+        <div class="dropdown-menu dropdown-menu-dark">
+            <form asp-page="Index">
+                <a asp-route-sortCategory="1" class="dropdown-item">Newest</a>
+            </form>
+
+            <form asp-page="Index">
+                <a asp-route-sortCategory="2" class="dropdown-item">Oldest</a>
+            </form>
+
+            <form asp-page="Index">
+                <a asp-route-sortCategory="4" class="dropdown-item">MaxSubs</a>
+            </form>
+
+            <form asp-page="Index">
+                <a asp-route-sortCategory="3" class="dropdown-item">MinSubs</a>
+            </form>
+        </div>
+    </div>
+
+
+    <br />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Slug</th>
+                <th>Number Subs</th>
+                <th>Operations</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.Categories)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Slug</td>
+                    <td>@item.NumberOfSubs</td>
+                    <td>
+                        <a asp-page="Index" asp-route-parentCategoryId="@item.Id" class="btn btn-outline-info">Show Subs</a>
+                        <a asp-page="Create" asp-route-parentCategoryId="@item.Id" class="btn btn-outline-success">Create Sub</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+

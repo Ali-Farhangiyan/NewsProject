@@ -1,0 +1,42 @@
+﻿@page
+@model Admin.Pages.Category.CreateModel
+@{
+}
+
+
+<div class="container">
+
+    <h1>Add New Category</h1>
+    <hr />
+
+    <form asp-page="Create">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="ModelCategory.Name" class="form-label"></label>
+            <input type="text" asp-for="ModelCategory.Name" class="form-control" />
+            <span asp-validation-for="ModelCategory.Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ModelCategory.Slug" class="form-label"></label>
+            <input type="text" asp-for="ModelCategory.Slug" class="form-control" />
+            <span asp-validation-for="ModelCategory.Slug" class="text-danger"></span>
+        </div>
+        <br />
+        <input type="hidden" asp-for="ModelCategory.ParentCategoryId" value="@ViewData["parentCategoryId"]" />
+
+        <button type="submit" class="btn btn-outline-success form-control" >Add Category</button> 
+
+    </form>
+
+
+
+
+
+
+
+
+
+</div>
