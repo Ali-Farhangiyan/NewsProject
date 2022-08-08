@@ -1,0 +1,52 @@
+﻿@page
+@model Admin.Pages.Account.RegisterModel
+@{
+}
+
+<h1>Register New User</h1>
+<hr />
+<br />
+
+<div class = "container">
+    <div class="row">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+            <div class="col-sm-6">
+                <label asp-for="Register.FullName" class="form-label"> </label>
+                <input asp-for="Register.FullName" class="form-control" />
+                <span asp-validation-for="Register.FullName" class="text-danger"> </span>
+            </div>
+
+            <div class="col-sm-6">
+                <label asp-for="Register.Email" class="form-label"> </label>
+                <input asp-for="Register.Email"  class="form-control" />
+                <span asp-validation-for="Register.Email" class="text-danger"> </span>
+            </div>
+
+            <div class="col-sm-6">
+                <label asp-for="Register.Password" class="form-label"> </label>
+                <input asp-for="Register.Password"  class="form-control" />
+                <span asp-validation-for="Register.Password" class="text-danger"> </span>
+            </div>
+
+            <div class="col-sm-6">
+                <label asp-for="Register.ConfirmPassword" class="form-label"> </label>
+                <input asp-for="Register.ConfirmPassword"  class="form-control" />
+                <span asp-validation-for="Register.ConfirmPassword" class="text-danger"> </span>
+            </div>
+            <br />
+            <div class="col-sm-6">
+
+                <input type="submit" class="btn-success btn form-control" value="Register"  />
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

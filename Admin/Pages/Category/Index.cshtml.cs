@@ -1,12 +1,14 @@
 using Application.Pagination;
 using Application.Services.CategoryServices.CategoryMainService;
 using Application.Services.CategoryServices.GetCategory;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 
 namespace Admin.Pages.Category
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly ICategoryService categoryService;

@@ -1,10 +1,12 @@
 using Application.Services.CategoryServices.AddCategory;
 using Application.Services.CategoryServices.CategoryMainService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Admin.Pages.Category
 {
+    [Authorize]
     public class CreateModel : PageModel
     {
         private readonly ICategoryService categoryService;

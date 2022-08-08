@@ -1,0 +1,56 @@
+﻿@page
+@model Admin.Pages.Account.LoginModel
+@{
+}
+
+<h1>LogIn</h1> 
+@if(@ViewData["userNotFound"] is not null)
+{
+    <div class="alert alert-danger" role="alert">
+      @ViewData["userNotFound"]
+    </div>
+
+}
+
+
+
+<div class = "container">
+    <div class="row">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-sm-6">
+                <label asp-for="LogIn.UserName" class="form-label"> </label>
+                <input asp-for="LogIn.UserName"  class="form-control" />
+                <span asp-validation-for="LogIn.UserName" class="text-danger"> </span>
+            </div>
+
+            <div class="col-sm-6">
+                <label asp-for="LogIn.Password" class="form-label"> </label>
+                <input asp-for="LogIn.Password" type="password" class="form-control" />
+                <span asp-validation-for="LogIn.Password" class="text-danger"> </span>
+            </div>
+
+            <div class="col-sm-6">
+                <label asp-for="LogIn.IsRememberMe" class="form-label"> </label>
+                <input asp-for="LogIn.IsRememberMe"  class="form-check-input" />
+                <span asp-validation-for="LogIn.IsRememberMe" class="text-danger"> </span>
+            </div>
+
+                <input asp-for="LogIn.ReturnUrl" type="hidden" class="form-control" />
+
+
+            <br />
+            <div class="col-sm-6">
+
+                <input type="submit" class="btn-success btn form-control" value="Login"  />
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

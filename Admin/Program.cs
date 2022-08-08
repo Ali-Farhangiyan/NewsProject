@@ -1,5 +1,6 @@
 using Application.Interfaces;
 using Application.Services.CategoryServices.CategoryMainService;
+using Infrastructure.IdentityService;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
 
@@ -18,7 +19,7 @@ builder.Services.AddDbContext<DatabaseContext>(op =>
 
 builder.Services.AddTransient<IDatabaseContext, DatabaseContext>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-
+builder.Services.AddMyIdentityService(builder.Configuration);
 
 
 
@@ -41,7 +42,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
+
+
 
 app.MapRazorPages();
 
