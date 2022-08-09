@@ -21,5 +21,6 @@ namespace Persistence.Contexts
         public DbSet<Comment> Comments { get; set; } = null!;
         public DbSet<Tags> Tags { get; set; } = null!;
         public DbSet<Category> Categories { get; set; } = null!;
+        public DbSet<Image> Images { get; set; } = null!;
     }
 }

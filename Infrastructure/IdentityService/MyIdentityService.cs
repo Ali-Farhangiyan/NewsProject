@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Interfaces;
 
 namespace Infrastructure.IdentityService
 {
@@ -20,7 +21,7 @@ namespace Infrastructure.IdentityService
 
             services.AddDbContext<IdentityDatabaseContext>(op => op.UseSqlServer(configuration["ConnectionString:SqlServerConnection"]));
             services.AddIdentity<User,IdentityRole>().AddEntityFrameworkStores<IdentityDatabaseContext>();
-            
+            services.AddTransient<IIdentityDatabaseContext, IdentityDatabaseContext>();
 
             return services;
         }

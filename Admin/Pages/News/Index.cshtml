@@ -2,3 +2,80 @@
 @model Admin.Pages.News.IndexModel
 @{
 }
+
+
+<div class="container">
+
+
+    <h1>List All News</h1>
+    <a asp-page="Create" class="btn btn-outline-dark">Create New News</a>
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-6">
+             <div class="dropdown">
+
+                <button class="dropdown-toggle btn btn-outline-secondary" data-bs-toggle="dropdown">Sorting News</button>
+
+                <div class="dropdown-menu dropdown-menu-dark">
+                    <a asp-route-SortNews="6" class="dropdown-item" >All</a>
+                    <a asp-route-SortNews="1" class="dropdown-item" >Newest</a>
+                    <a asp-route-SortNews="2" class="dropdown-item" >Oldest</a>
+                    <a asp-route-SortNews="3" class="dropdown-item" >Published</a>
+                    <a asp-route-SortNews="4" class="dropdown-item" >Rejected</a>
+                    <a asp-route-SortNews="5" class="dropdown-item" >Waiting</a>
+            
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <form asp-page="Index" method="get">
+                <div class="form-group d-flex">
+                    <input type="text"  name="SearchKey" class=" form-control mr-2" placeholder="search title, category,..."/>
+                    <button type="submit"  class="btn btn-outline-info d-inline-block">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Operations</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.NewsList)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Title</td>
+                    <td>@item.Author</td>
+                    <td>@item.MetaDescription</td>
+                    <td>@item.CategoryName</td>
+                    <td>@item.Status</td>
+                    <td>
+                        <a asp-page="Details" class="btn btn-outline-info" asp-route-Id="@item.Id">Read & Change Status</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+
+
+
+</div>
+
+

@@ -1,0 +1,77 @@
+﻿
+@page
+@model Admin.Pages.News.DetailsModel
+@using Domain.Entites
+@{
+}
+
+
+<div class="container">
+
+    <h1>Detail Management News</h1>
+    <hr />
+
+    <h3>Paragraphes:</h3>
+
+    <div class="row">
+        @foreach (var item in Model.Detail.NewsBody)
+        {
+            <div class="col-sm-12 border mb-2">
+                <h5>@item.TitleParagraph</h5>
+                <p>@item.BodyParagraph</p>
+            </div>
+        }
+    </div>
+    <br />
+    <hr />
+    <form asp-page="Details" class="row border p-4">
+
+
+        <h3>Select Title Image</h3>
+        <div class="row">
+        
+                @foreach (var item in Model.Detail.Images)
+                {
+                    <div class="col-sm-3 border">
+                        <input type="radio" name="Image" value="@item" >
+                        <hr>
+                        <img src="@item"  class="img-fluid">
+
+                    </div>
+                
+                }
+        
+        </div>
+        <input type="hidden" name="Id" value="@Model.Detail.Id" />
+        <br />
+
+        <h3>Change Status </h3>
+        <div class="row">
+        
+                @foreach (var item in @Html.GetEnumSelectList<NewsStatus>())
+                {
+                    <div class="col-sm-3 border">
+                        <input type="radio" name="ManageStatus" value="@item.Text" >
+                        <hr>
+                        <p>@item.Text</p>
+
+                    </div>
+                
+                }
+        
+        </div>
+        <br />
+        <button type="submit" class="btn btn-outline-primary" >Apply Change</button>
+
+    </form>
+
+
+
+
+
+
+
+
+
+
+</div>

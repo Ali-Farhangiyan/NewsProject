@@ -9,7 +9,7 @@
         public int NewsId { get; private set; }
 
         public string? TitleParagraph { get; private set; }
-        public string? ImageParagraph { get; private set; }
+        
         public string? BodyParagraph { get; private set; }
 
         public NewsBody()
@@ -17,12 +17,10 @@
             // ef
         }
 
-        public NewsBody(int newsId, string titleParagraph,
-            string imageParagraph, string bodyParagraph)
+        public NewsBody(int newsId, string titleParagraph, string bodyParagraph)
         {
             NewsId = newsId;
             TitleParagraph = titleParagraph;
-            ImageParagraph = imageParagraph;
             BodyParagraph = bodyParagraph;
         }
     }

@@ -2,3 +2,255 @@
 @model Admin.Pages.News.CreateModel
 @{
 }
+
+
+<div class="container">
+
+
+    <h1>Add New News</h1>
+    <hr />
+
+    <form id="form" asp-antiforgery="true" method="post">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Data.Title" class="form-label"></label>
+            <input type="text" id="Title" asp-for="Data.Title" class="form-control" />
+            <span asp-validation-for="Data.Title"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Data.Slug" class="form-label"></label>
+            <input type="text" id="Slug" asp-for="Data.Slug" class="form-control" />
+            <span asp-validation-for="Data.Slug"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Data.MetaDescription" class="form-label"></label>
+            <input type="text" id="MetaDescription" asp-for="Data.MetaDescription" class="form-control" />
+            <span asp-validation-for="Data.MetaDescription"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Data.CategoryId" class="form-label"></label>
+            <select asp-for="Data.CategoryId" id="CategoryId" asp-items="@Model.Categories"></select>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="Data.Images" class="form-label"></label>
+            <input type="file" asp-for="Data.Images" id="images" class="form-control" multiple/>
+        </div>
+
+        <br />
+        
+       <div class="row">
+           <div class="card col-md-12">
+                            <div class="card-header col-md-12 row">
+                                <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                    <fieldset class="form-group">
+                                        <label for="basicInput"> Title </label>
+                                        <input type="text" class="form-control" id="txtTitle" placeholder="Title..." />
+                                    </fieldset>
+                                </div>
+                                <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                    <fieldset class="form-group">
+                                        <label for="basicInput"> Paragraph </label>
+                                        <textarea id="txtParagraph" class="form-control" placeholder="Paragraph..."></textarea>
+                                    </fieldset>
+                                </div>
+                                <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                    <fieldset class="form-group">
+                                        <br />
+                                        <a class="btn btn-success" id="btnAddFeatures">Add</a>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="card-body col-md-12">
+                                <table id="tbl_Features" class="col-md-12 table table-bordered table-hover  table-condensed table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Title
+                                            </th>
+                                            <th>
+                                                Paragraph 
+                                            </th>
+                                            <th>
+
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+       </div>
+
+       <br /><hr />
+
+       <div class="row">
+           <div class="card col-md-12">
+                            <div class="card-header col-md-12 row">
+                                <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                    <fieldset class="form-group">
+                                        <label for="basicInput"> Title </label>
+                                        <input type="text" class="form-control" id="txtTag" placeholder="Tag..." />
+                                    </fieldset>
+                                </div>
+
+                                <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                    <fieldset class="form-group">
+                                        <br />
+                                        <a class="btn btn-success" id="btnAddTags">Add Tag</a>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="card-body col-md-12">
+                                <table id="tbl_Tags" class="col-md-12 table table-bordered table-hover  table-condensed table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Tag
+                                            </th>
+                                            <th>
+
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+       </div>
+
+
+       <br />
+        <button type="submit" class="btn btn-outline-success" >Add News</button>
+
+
+    </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+@section Scripts{
+    
+
+    <script>
+        $(document).ready(function() {
+
+                $("#btnAddFeatures").on("click", function () {
+                var txtParagraph = $("#txtParagraph").val();
+                var txtTitle = $("#txtTitle").val();
+
+                if (txtParagraph == "" || txtTitle == "") {
+                
+                }
+                else {
+                    $('#tbl_Features tbody').append('<tr><td>' + txtTitle + '</td>  <td>' + txtParagraph + '</td>  <td> <a class="idFeatures btnDelete btn btn-danger"> Remove </a> </td> </tr>');
+                    $("#txtParagraph").val('');
+                    $("#txtTitle").val('');
+                }
+                });
+
+                $("#tbl_Features").on('click', '.idFeatures', function () {
+                    $(this).closest('tr').remove();
+                });
+
+
+
+
+                $("#btnAddTags").on("click", function () {
+                var txtTag = $("#txtTag").val();
+
+                if (txtTag == "") {
+                
+                }
+                else {
+                    $('#tbl_Tags tbody').append('<tr><td>' + txtTag + '</td>   <td> <a class="idTags btnDelete btn btn-danger"> Remove </a> </td> </tr>');
+                    $("#txtTag").val('');
+                }
+                });
+
+                $("#tbl_tags").on('click', '.idTags', function () {
+                    $(this).closest('tr').remove();
+                });
+
+
+            $("#form").submit(function(e) {
+                e.preventDefault();
+
+
+                let data = new FormData();
+
+
+                // newsbodies
+                data.append("Title",$("#Title").val());
+                data.append("Slug",$("#Slug").val());
+                data.append("MetaDescription",$("#MetaDescription").val());
+                data.append("CategoryId",$("#CategoryId").val());
+
+                var dataFeaturesViewModel = $('#tbl_Features tr:gt(0)').map(function () {
+                return {
+                    Title: $(this.cells[0]).text(),
+                    Paragraph: $(this.cells[1]).text(),
+                        };
+                    }).get();
+
+                $.each(dataFeaturesViewModel, function (i, val) {
+                    data.append(`NewsBodies[${i}].TitleParagraph`, val.Title);
+                    data.append(`NewsBodies[${i}].BodyParagraph`, val.Paragraph);
+
+                });
+
+
+                // tags 
+                var dataTagsViewModel = $('#tbl_Tags tr:gt(0)').map(function () {
+                return {
+                    Tag: $(this.cells[0]).text(),
+                        };
+                    }).get();
+
+                $.each(dataTagsViewModel, function (i, val) {
+                    data.append(`Tags[${i}].Name`, val.Tag);
+
+                });
+
+
+                let images = $("#images")[0];
+                if (images.files.length > 0) {
+                    for (let i = 0; i < images.files.length; i++) {
+                        data.append(`images-${i}`, images.files[i]);
+                    }
+                }
+
+
+                // ajax
+                $.ajax({
+                    url:"/news/create/",
+                    type:"POST",
+                    data:data,
+                    contentType:false,
+                    processData:false,
+                    headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+
+                })
+            });
+            
+
+        })
+    </script>
+}

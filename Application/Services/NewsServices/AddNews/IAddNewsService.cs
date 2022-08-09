@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Entites;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Application.Services.NewsServices.AddNews
     {
         private readonly IDatabaseContext db;
 
-        public AddNewsService(IDatabaseContext db)
+        public AddNewsService(IDatabaseContext db )
         {
             this.db = db;
         }
@@ -25,11 +26,12 @@ namespace Application.Services.NewsServices.AddNews
 
         public async Task<bool> ExecuteAsync(AddNewsDto news)
         {
-            var newNews = new News(news.Slug, news.UserId, news.MetaDescription, news.Title, news.ImageTitle, news.CategoryId);
+            var newNews = new News(news.Slug, news.UserId,
+                news.MetaDescription, news.Title, news.CategoryId);
 
             foreach (var item in news.NewsBodies)
             {
-                var newbody = new NewsBody(item.NewsId, item.TitleParagraph, item.ImageParagraph, item.BodyParagraph);
+                var newbody = new NewsBody(newNews.Id, item.TitleParagraph, item.BodyParagraph);
                 newNews.AddNewsBody(newbody);
             }
 
@@ -37,6 +39,12 @@ namespace Application.Services.NewsServices.AddNews
             {
                 var tag = new Tags(item.Name);
                 newNews.AddTag(tag);
+            }
+
+            foreach (var item in news.Images)
+            {
+                var image = new Image(newNews.Id, item.Src);
+                newNews.AddImages(image);
             }
 
             await db.News.AddAsync(newNews);
@@ -48,29 +56,32 @@ namespace Application.Services.NewsServices.AddNews
 
     public class AddNewsDto
     {
-        public string Slug { get; private set; } = null!;
-        public string UserId { get; private set; } = null!;
-        public string Title { get; private set; } = null!;
-        public string MetaDescription { get; private set; } = null!;
-        public string ImageTitle { get; private set; } = null!;
-        public int CategoryId { get; private set; }
+        public string Slug { get;  set; } = null!;
+        public string UserId { get;  set; } = null!;
+        public string Title { get;  set; } = null!;
+        public string MetaDescription { get; set; } = null!;
+        public int CategoryId { get;  set; }
 
         public ICollection<NewsBodyDto> NewsBodies { get; set; } = null!;
 
         public ICollection<TagsDto> Tags { get; set; } = null!;
+        public ICollection<ImageDto> Images { get; set; } = null!;
 
     }
 
     public class NewsBodyDto
     {
-        public int NewsId { get; private set; }
-        public string? TitleParagraph { get; private set; }
-        public string? ImageParagraph { get; private set; }
-        public string? BodyParagraph { get; private set; }
+        public string? TitleParagraph { get;  set; }
+        public string? BodyParagraph { get;  set; }
+    }
+
+    public class ImageDto
+    {
+        public string Src { get; set; }
     }
 
     public class TagsDto
     {
-        public string Name { get; private set; } = null!;
+        public string Name { get;  set; } = null!;
     }
 }

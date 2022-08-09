@@ -1,6 +1,8 @@
 using Application.Interfaces;
 using Application.Services.CategoryServices.CategoryMainService;
+using Application.Services.NewsServices.NewsMainService;
 using Infrastructure.IdentityService;
+using Infrastructure.InfrastructureServices.ImageService;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
 
@@ -19,6 +21,8 @@ builder.Services.AddDbContext<DatabaseContext>(op =>
 
 builder.Services.AddTransient<IDatabaseContext, DatabaseContext>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddMyIdentityService(builder.Configuration);
 
 

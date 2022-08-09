@@ -83,6 +83,28 @@ namespace Persistence.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("Domain.Entites.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("NewsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Src")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NewsId");
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("Domain.Entites.News", b =>
                 {
                     b.Property<int>("Id")
@@ -104,6 +126,9 @@ namespace Persistence.Migrations
                     b.Property<string>("MetaDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NewsStatus")
+                        .HasColumnType("int");
 
                     b.Property<int>("NumberOfVisited")
                         .HasColumnType("int");
@@ -136,9 +161,6 @@ namespace Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("BodyParagraph")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageParagraph")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NewsId")
@@ -206,6 +228,17 @@ namespace Persistence.Migrations
                     b.Navigation("News");
                 });
 
+            modelBuilder.Entity("Domain.Entites.Image", b =>
+                {
+                    b.HasOne("Domain.Entites.News", "News")
+                        .WithMany("Images")
+                        .HasForeignKey("NewsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("News");
+                });
+
             modelBuilder.Entity("Domain.Entites.News", b =>
                 {
                     b.HasOne("Domain.Entites.Category", "Category")
@@ -253,6 +286,8 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entites.News", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Images");
 
                     b.Navigation("NewsBodies");
                 });
