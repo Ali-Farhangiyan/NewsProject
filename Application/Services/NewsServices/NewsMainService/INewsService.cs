@@ -4,6 +4,8 @@ using Application.Services.NewsServices.DetailNews;
 using Application.Services.NewsServices.GetCategories;
 using Application.Services.NewsServices.GetNews;
 using Application.Services.NewsServices.ManagementNews;
+using Application.Services.NewsServices.ShowDetailsNews;
+using Application.Services.NewsServices.ShowNewsForCategory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +25,10 @@ namespace Application.Services.NewsServices.NewsMainService
         IDetailNewsService DetailNews { get; }
 
         IManagementNewsService ManageNews { get; }
+
+        IShowNewsForCategoryService ShowNews { get; }
+
+        IShowDetailsNewsService ShowDetails { get; }
     }
 
     public class NewsService : INewsService
@@ -64,5 +70,17 @@ namespace Application.Services.NewsServices.NewsMainService
         private IManagementNewsService manageNews;
         public IManagementNewsService ManageNews =>
             manageNews ?? new ManagementNewsService(db);
+
+
+
+        private IShowNewsForCategoryService showNews;
+        public IShowNewsForCategoryService ShowNews =>
+            showNews ?? new ShowNewsForCategoryService(db);
+
+
+
+        private IShowDetailsNewsService showDetails;
+        public IShowDetailsNewsService ShowDetails =>
+            showDetails ?? new ShowDetailsNewsService(db);
     }
 }

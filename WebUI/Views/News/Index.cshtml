@@ -1,0 +1,36 @@
+﻿@using Application.Pagination
+@using Application.Services.NewsServices.ShowNewsForCategory
+@model PaginatedList<ShowNewsForCategoryDto>
+
+
+
+<div class="container">
+    <h1>@Model.FirstOrDefault().CategoryName</h1>
+
+    
+    <div class="nav">
+        <a asp-action="Index" asp-route-SortShowNews="1" class="nav-link btn btn-sm btn-outline-light text-black mr-2 ">Newest</a>
+        <a asp-action="Index" asp-route-SortShowNews="2" class="nav-link btn btn-sm btn-outline-light text-black mr-2 ">Oldest</a>
+        <a asp-action="Index" asp-route-SortShowNews="3" class="nav-link btn btn-sm btn-outline-light text-black mr-2 ">HotNews</a>
+        <a asp-action="Index" asp-route-SortShowNews="4" class="nav-link btn btn-sm btn-outline-light text-black mr-2 ">MostVisited</a>
+    </div>
+
+    <hr />
+    @foreach (var item in Model)
+    {
+        <div class="row border mb-2 p-2">
+
+            <div class="col-sm-4">
+                <a asp-action="Details" class="text-decoration-none" asp-route-Id="@item.Id">
+                    <img src="@item.ImageTitle" class="img-fluid rounded">
+                </a>
+            </div>
+
+            <div class="col-sm-8">
+                <h3><a asp-action="Details" class="text-decoration-none text-black" asp-route-Id="@item.Id">@item.Title</a></h3>
+                <p>@item.MetaDescription</p>
+            </div>
+
+        </div>
+    }
+</div>

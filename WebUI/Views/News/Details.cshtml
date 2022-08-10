@@ -1,0 +1,63 @@
+﻿@using Application.Services.NewsServices.ShowDetailsNews
+@model ShowDetailNewsDto
+
+<div class="container">
+
+
+    <header class="row ">
+        <div class="row">
+            <h1>@Model.Title</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <img src="@Model.ImageTitle" class="img-fluid"/>
+            </div>
+
+            <div class="col-sm-8">
+                <p>@Model.MetaDescription</p>
+            </div>
+        </div>
+    </header>
+    <br />
+    <hr />
+
+    <main class="row">
+        
+
+        <section class="col-sm-8">
+            @foreach (var item in Model.NewsBodies)
+            {
+                <div class="row">
+                    <h3>@item.TitleParagraph</h3>
+                    <p>@item.BodyParagraph</p>
+                </div>
+            }
+
+            @foreach (var item in Model.Images)
+            {
+                <div class="row mb-2">
+                    <img src="@item" class="img-fluid rounded">
+                </div>
+            }
+        </section>
+
+        <aside class="col-sm-4">
+
+        </aside>
+    </main>
+    <hr />
+    <section class="row">
+        <h4>Tags</h4>
+        <div class="nav">
+            
+            @foreach (var item in Model.Tags)
+            {
+                <a href="#" class="nav-link btn text-black btn-sm btn-outline-light">@item</a>
+            }
+        </div>
+    </section>
+
+
+
+</div>

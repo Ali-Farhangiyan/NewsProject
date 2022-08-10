@@ -1,4 +1,6 @@
 using Application.Interfaces;
+using Application.Services.NewsServices.NewsMainService;
+using Infrastructure.IdentityService;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
 
@@ -18,6 +20,9 @@ builder.Services.AddDbContext<DatabaseContext>(op =>
 
 
 builder.Services.AddTransient<IDatabaseContext, DatabaseContext>();
+builder.Services.AddTransient<INewsService, NewsService>();
+
+builder.Services.AddMyIdentityService(builder.Configuration);
 
 
 
