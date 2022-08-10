@@ -53,7 +53,8 @@
             
             @foreach (var item in Model.Tags)
             {
-                <a href="#" class="nav-link btn text-black btn-sm btn-outline-light">@item</a>
+                @*<a href="#" class="nav-link btn text-black btn-sm btn-outline-light">@item</a>*@
+                <a asp-action="Index" asp-controller="News" asp-route-TagName="@item" class="nav-link btn text-black btn-sm btn-outline-light" >@item</a>
             }
         </div>
     </section>

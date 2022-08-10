@@ -28,12 +28,14 @@ namespace Application.Services.NewsServices.ShowNewsForCategory
         {
             var query = db.News
                 .Include(n => n.Category)
-                .ThenInclude(c => c.ParentCategory).AsQueryable();
+                .ThenInclude(c => c.ParentCategory)
+                .Include(n => n.Tags)
+                .AsQueryable();
 
             query = ApplyReqestShowNews(request, query);
 
             var news = await query
-                .Where(n => n.CategoryId == request.CategoryId && n.NewsStatus == NewsStatus.Published)
+                .Where(n => n.NewsStatus == NewsStatus.Published)
                 .Select(n => new ShowNewsForCategoryDto
                 {
                     Id = n.Id,
@@ -49,9 +51,20 @@ namespace Application.Services.NewsServices.ShowNewsForCategory
 
         private static IQueryable<News> ApplyReqestShowNews(RequestShowNewsDto request, IQueryable<News> query)
         {
+            if(request.CategoryId is not null)
+            {
+                query = query.Where(n => n.CategoryId == request.CategoryId);
+            }
+
             if (request.SortShowNews == SortShowNews.Newest)
             {
                 query = query.OrderBy(n => n.Id);
+            }
+
+            if (!string.IsNullOrWhiteSpace(request.TagName))
+            {
+                query = query
+                .Where(n => n.Tags.Any(t => t.Name.Contains(request.TagName)));
             }
 
             if (request.SortShowNews == SortShowNews.Oldest)
@@ -90,6 +103,8 @@ namespace Application.Services.NewsServices.ShowNewsForCategory
 
         public string Title { get; set; } = null!;
 
+        
+
         public string CategoryName { get; set; } = null!;
     }
     public class RequestShowNewsDto
@@ -97,7 +112,9 @@ namespace Application.Services.NewsServices.ShowNewsForCategory
         public int PageSize { get; set; } = 10;
         public int PageIndex { get; set; } = 1;
         public string SearchKey { get; set; } = null!;
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
+
+        public string TagName { get; set; } = null!;
         public SortShowNews SortShowNews { get; set; } = SortShowNews.Newest;
 
     }

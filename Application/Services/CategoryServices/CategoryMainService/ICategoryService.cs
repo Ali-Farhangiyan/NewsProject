@@ -2,6 +2,7 @@
 using Application.Pagination;
 using Application.Services.CategoryServices.AddCategory;
 using Application.Services.CategoryServices.GetCategory;
+using Application.Services.CategoryServices.GetCategoryiesMenu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace Application.Services.CategoryServices.CategoryMainService
         IAddCategoryService AddCategory { get; }
 
         IGetCategoryService GetCategory { get; }
+
+        IGetCategoryiesMenuService GetCategoryiesMenu { get; }
     }
 
     public class CategoryService : ICategoryService
@@ -34,5 +37,10 @@ namespace Application.Services.CategoryServices.CategoryMainService
         private IGetCategoryService getCategory;
         public IGetCategoryService GetCategory =>
             getCategory ?? new GetCategoryService(db);
+
+
+        private IGetCategoryiesMenuService getCategoryiesMenu;
+        public IGetCategoryiesMenuService GetCategoryiesMenu =>
+            getCategoryiesMenu ?? new GetCategoryiesMenuService(db);
     }
 }

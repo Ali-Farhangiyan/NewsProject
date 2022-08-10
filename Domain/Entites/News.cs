@@ -14,7 +14,7 @@ namespace Domain.Entites
         public string Title { get; private set; } = null!;
         public string MetaDescription { get; private set; } = null!;
         public int NumberOfVisited { get; private set; }
-        public string ImageTitle { get; private set; }
+        public string? ImageTitle { get; private set; }
         public NewsStatus NewsStatus { get; private set; } = NewsStatus.Waiting;
         public int HotNews { get; private set; }
         public Category Category { get; private set; } = null!;

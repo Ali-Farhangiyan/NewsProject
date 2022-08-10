@@ -16,7 +16,7 @@ namespace WebUI.Controllers
 
         public async Task<IActionResult> Index(RequestShowNewsDto request)
         {
-            request.CategoryId = 2;
+            
             var model = await newsService.ShowNews.ExecuteAsync(request);
             return View(model);
         }

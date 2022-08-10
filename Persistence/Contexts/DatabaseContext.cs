@@ -1,6 +1,8 @@
 ﻿using Application.Interfaces;
 using Domain.Entites;
 using Microsoft.EntityFrameworkCore;
+using Persistence.EntitesConfigurations.CategoryConfigs;
+using Persistence.EntitesConfigurations.NewsConfigs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,12 @@ namespace Persistence.Contexts
         public DatabaseContext(DbContextOptions<DatabaseContext> op):base(op)
         {
 
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new NewsConfiguration());
         }
 
         public DbSet<News> News { get; set; } = null!;
