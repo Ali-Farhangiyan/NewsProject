@@ -58,6 +58,59 @@
             }
         </div>
     </section>
+    <br />
+    <section class="row border p-3">
+
+        <h4>Comments</h4>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form asp-action="AddComment" method="post" class="col-12">
+                    <input type="text" class="form-control-plaintext" value="@Model.UserFullName" />
+                    <input type="hidden" name="newsId" value="@Model.Id" />
+
+                    <textarea class="form-control" name="body" placeholder="enter your comment..."></textarea>
+                    <br />
+                    <input type="submit" class="btn btn-outline-secondary" value="Add Comment" />
+                </form>
+            }
+            else
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title text-danger">For enter your comment, you must login!</h3>
+                        <a asp-action="Login" asp-controller="Account" class="btn btn-outline-success" >Login!</a>
+                    </div>
+                </div>
+            }
+
+
+
+            
+
+
+
+        @foreach (var item in Model.Comments)
+        {
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="card-title">@item.FullName</h6>
+                        <p class="card-text"></p>
+                        <p class="card-text"></p>
+                    </div>
+
+                    <div class="card-body">
+                        <p class="card-title">@item.Body</p>
+                    </div>
+
+                    <div class="card-footer">
+                        <p class="card-text text-muted">@item.DateOfRegisterTime</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </section>
 
 
 

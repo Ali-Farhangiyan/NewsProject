@@ -1,5 +1,6 @@
 using Application.Interfaces;
 using Application.Services.CategoryServices.CategoryMainService;
+using Application.Services.CommentServices.CommentMainService;
 using Application.Services.NewsServices.NewsMainService;
 using Infrastructure.IdentityService;
 using Infrastructure.InfrastructureServices.ImageService;
@@ -23,6 +24,7 @@ builder.Services.AddTransient<IDatabaseContext, DatabaseContext>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<INewsService, NewsService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddMyIdentityService(builder.Configuration);
 
 

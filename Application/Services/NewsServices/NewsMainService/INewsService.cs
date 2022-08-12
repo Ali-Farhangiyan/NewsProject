@@ -2,6 +2,7 @@
 using Application.Services.NewsServices.AddNews;
 using Application.Services.NewsServices.DetailNews;
 using Application.Services.NewsServices.GetCategories;
+using Application.Services.NewsServices.GetInfoUsers;
 using Application.Services.NewsServices.GetNews;
 using Application.Services.NewsServices.ManagementNews;
 using Application.Services.NewsServices.ShowDetailsNews;
@@ -29,6 +30,8 @@ namespace Application.Services.NewsServices.NewsMainService
         IShowNewsForCategoryService ShowNews { get; }
 
         IShowDetailsNewsService ShowDetails { get; }
+
+        IGetInfoUsersService GetInfoUser { get; }
     }
 
     public class NewsService : INewsService
@@ -82,5 +85,11 @@ namespace Application.Services.NewsServices.NewsMainService
         private IShowDetailsNewsService showDetails;
         public IShowDetailsNewsService ShowDetails =>
             showDetails ?? new ShowDetailsNewsService(db);
+
+
+
+        private IGetInfoUsersService getInfoUser;
+        public IGetInfoUsersService GetInfoUser =>
+            getInfoUser ?? new GetInfoUsersService(identityDb);
     }
 }

@@ -1,0 +1,39 @@
+﻿
+@page
+@using Domain.Entites
+@model Admin.Pages.Comment.DetailsModel
+@{
+}
+
+
+<div class="container">
+
+    <h1>Verify Comment</h1>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <h3 class="card-title">@Model.Comment.Email</h3>
+
+                <p class="card-text">@Model.Comment.Body</p>
+            </div>
+
+
+        </div>
+
+
+        <form asp-page="Details" class="col-sm-6">
+            <input type="hidden" name="Id" value="@Model.Comment.Id" />
+            @foreach (var item in @Html.GetEnumSelectList<StatusComment>())
+            {
+                <div class="form-check">
+                    <label class="form-check-label" >@item.Text.ToString()</label>
+                    <input class="form-check-input" name="StatusComment" type="radio" value="@item.Text.ToString()">
+                </div>
+            }
+            <input type="submit" value="Change status" class="btn btn-outline-primary" />
+        </form>
+    </div>
+
+
+
+</div>

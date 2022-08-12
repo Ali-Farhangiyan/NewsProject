@@ -1,0 +1,50 @@
+﻿@using Admin.Model.ViewModels
+@model RegisterViewModel
+
+<h1>Register New User</h1>
+<hr />
+<br />
+
+<div class = "container">
+    <div class="row">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+            <div class="col-sm-6">
+                <label asp-for="FullName" class="form-label"> </label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"> </span>
+            </div>
+
+            <div class="col-sm-6">
+                <label asp-for="Email" class="form-label"> </label>
+                <input asp-for="Email"  class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"> </span>
+            </div>
+
+            <div class="col-sm-6">
+                <label asp-for="Password" class="form-label"> </label>
+                <input asp-for="Password"  class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"> </span>
+            </div>
+
+            <div class="col-sm-6">
+                <label asp-for="ConfirmPassword" class="form-label"> </label>
+                <input asp-for="ConfirmPassword"  class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"> </span>
+            </div>
+            <br />
+            <div class="col-sm-6">
+
+                <input type="submit" class="btn-success btn form-control" value="Register"  />
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

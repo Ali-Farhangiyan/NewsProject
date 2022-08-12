@@ -8,6 +8,10 @@
 
         public string Email { get; private set; } = null!;
 
+        public string FullName { get; private set; } = null!;
+
+        public DateTime DateOfRegisteryComment { get; private set; } = DateTime.Now;
+
         public StatusComment StatusComment { get; private set; } = StatusComment.Waiting;
 
         public int NumberOfLikes { get; private set; }
@@ -37,8 +41,9 @@
             // ef
         }
 
-        public Comment(string body, string email, int newsId)
+        public Comment(string body, string email, int newsId, string fullName)
         {
+            FullName = fullName;
             Body = body;
             Email = email;
             NewsId = newsId;

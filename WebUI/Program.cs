@@ -1,5 +1,6 @@
 using Application.Interfaces;
 using Application.Services.CategoryServices.CategoryMainService;
+using Application.Services.CommentServices.CommentMainService;
 using Application.Services.NewsServices.NewsMainService;
 using Infrastructure.IdentityService;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,7 @@ builder.Services.AddDbContext<DatabaseContext>(op =>
 builder.Services.AddTransient<IDatabaseContext, DatabaseContext>();
 builder.Services.AddTransient<INewsService, NewsService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddTransient<ICommentService, CommentService>();
 
 
 builder.Services.AddMyIdentityService(builder.Configuration);
@@ -50,6 +52,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

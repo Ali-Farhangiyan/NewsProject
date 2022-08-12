@@ -14,7 +14,15 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-
+          @if (User.Identity.IsAuthenticated)
+                        {
+                            <a asp-action="Logout" asp-controller="Account" class="nav-link" >Logout</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Register" asp-controller="Account" class="nav-link" >Register</a>
+                            <a asp-action="Login" asp-controller="Account" class="nav-link" >Login</a>
+                        }
 
         @foreach (var item in Model.Where(c => c.ParentCategoryId == null))
         {
@@ -22,10 +30,17 @@
               <button class="nav-link dropdown-toggle btn btn-outline-light " role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 @item.Name
               </button>
+                        
+                        
               <ul class="dropdown-menu">
+                <li> 
+                    <a asp-action="Register" asp-controller="Account" class="nav-link" >Register</a>
+                </li>
                 @foreach (var item2 in item.SubCategories)
                 {
-                    <li><a asp-action="Index" asp-controller="News" asp-route-CategoryId="@item2.Id" class="dropdown-item">@item2.Name</a></li>
+                    <li>
+                        <a asp-action="Index" asp-controller="News" asp-route-CategoryId="@item2.Id" class="dropdown-item">@item2.Name</a>
+                    </li>
                     
                 }
                 

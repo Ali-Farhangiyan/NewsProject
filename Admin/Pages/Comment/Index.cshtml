@@ -1,0 +1,41 @@
+﻿@page
+@model Admin.Pages.Comment.IndexModel
+@{
+}
+
+
+<div class="container">
+
+
+    <h1>Show Comments</h1>
+    <hr />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Related News</th>
+                <th>Email User</th>
+                <th>Status</th>
+                <th>Operations</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.Comments)
+            {
+                <tr>
+                <td>@item.Id</td>
+                <td>@item.NewsContent</td>
+                <td>@item.Email</td>
+                <td>@item.Status</td>
+                <td>
+                    <a asp-page="Details" asp-route-Id="@item.Id" class="btn btn-outline-dark">Read & Change Status</a>
+                </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>

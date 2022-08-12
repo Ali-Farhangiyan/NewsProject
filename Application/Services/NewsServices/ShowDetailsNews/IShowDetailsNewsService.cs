@@ -47,7 +47,17 @@ namespace Application.Services.NewsServices.ShowDetailsNews
                         TitleParagraph = nb.TitleParagraph,
                         BodyParagraph = nb.BodyParagraph
                     }).ToList(),
-                    Tags = n.Tags.Select(t => t.Name).ToList()
+                    Tags = n.Tags.Select(t => t.Name).ToList(),
+                    Comments = n.Comments.Where(co => co.StatusComment == Domain.Entites.StatusComment.Accepted)
+                    .Select(c => new DetailCommentDto
+                    {
+                        FullName = c.FullName,
+                        Body = c.Body,
+                        DateOfRegisterTime = c.DateOfRegisteryComment,
+                        NumberOfDislike = c.NumberOfDisLikes,
+                        NumberOfLike = c.NumberOfLikes
+                    }).ToList()
+                    
                 }).FirstOrDefaultAsync();
 
             return news ?? null!;
@@ -58,6 +68,8 @@ namespace Application.Services.NewsServices.ShowDetailsNews
     public class ShowDetailNewsDto
     {
         public int Id { get; set; }
+
+        public string? UserFullName { get; set; }
 
         public string ImageTitle { get; set; } = null!;
 
@@ -70,7 +82,20 @@ namespace Application.Services.NewsServices.ShowDetailsNews
         public List<NewsBodyDto> NewsBodies { get; set; } = null!;
 
         public List<string> Tags { get; set; } = null!;
+        public List<DetailCommentDto> Comments { get; set; } = null!;
 
+    }
+
+    public class DetailCommentDto
+    {
+        public string FullName { get; set; } = null!;
+
+        public DateTime DateOfRegisterTime { get; set; }
+
+        public int NumberOfLike { get; set; }
+        public int NumberOfDislike { get; set; }
+
+        public string Body { get; set; } = null!;
     }
 
    
