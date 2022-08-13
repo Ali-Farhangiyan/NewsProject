@@ -28,9 +28,10 @@ namespace WebUI.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Details(int Id)
+
+        public async Task<IActionResult> Details(string slug)
         {
-            var model = await newsService.ShowDetails.ExecuteAsync(Id);
+            var model = await newsService.ShowDetails.ExecuteAsync(slug);
             if (User.Identity.IsAuthenticated)
             {
                 var userFind = await newsService.GetInfoUser.ExecuteAsync(ClaimUtility.GetUserId(User));
@@ -38,8 +39,11 @@ namespace WebUI.Controllers
                 model.UserFullName = userFind.FullName;
 
             }
+
+
             return View(model);
         }
+
 
         [HttpPost]
         [Authorize]

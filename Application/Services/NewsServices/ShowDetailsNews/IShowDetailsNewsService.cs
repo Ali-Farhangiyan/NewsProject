@@ -12,7 +12,7 @@ namespace Application.Services.NewsServices.ShowDetailsNews
 {
     public interface IShowDetailsNewsService
     {
-        Task<ShowDetailNewsDto> ExecuteAsync(int id);
+        Task<ShowDetailNewsDto> ExecuteAsync( string slug);
     }
 
     public class ShowDetailsNewsService : IShowDetailsNewsService
@@ -25,7 +25,7 @@ namespace Application.Services.NewsServices.ShowDetailsNews
         }
 
 
-        public async Task<ShowDetailNewsDto> ExecuteAsync(int id)
+        public async Task<ShowDetailNewsDto> ExecuteAsync( string slug)
         {
             var news = await db.News
                 .Include(n => n.Category)
@@ -34,7 +34,7 @@ namespace Application.Services.NewsServices.ShowDetailsNews
                 .Include(n => n.NewsBodies)
                 .Include(n => n.Comments)
                 .Include(n => n.Tags)
-                .Where(n => n.Id == id)
+                .Where(n => n.Slug == slug)
                 .Select(n => new ShowDetailNewsDto
                 {
                     Id = n.Id,

@@ -26,13 +26,14 @@
         <div class="row border mb-2 p-2">
 
             <div class="col-sm-4">
-                <a asp-action="Details" class="text-decoration-none" asp-route-Id="@item.Id">
+
+                <a href="/news/@item.Slug" class="text-decoration-none" >
                     <img src="@item.ImageTitle" class="img-fluid rounded">
                 </a>
             </div>
 
             <div class="col-sm-8">
-                <h3><a asp-action="Details" class="text-decoration-none text-black" asp-route-Id="@item.Id">@item.Title</a></h3>
+                <h3><a href="/news/@item.Slug" class="text-decoration-none text-black">@item.Title</a></h3>
                 <p>@item.MetaDescription</p>
             </div>
 

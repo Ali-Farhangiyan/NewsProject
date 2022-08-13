@@ -33,13 +33,12 @@
                         
                         
               <ul class="dropdown-menu">
-                <li> 
-                    <a asp-action="Register" asp-controller="Account" class="nav-link" >Register</a>
-                </li>
+                
                 @foreach (var item2 in item.SubCategories)
                 {
                     <li>
-                        <a asp-action="Index" asp-controller="News" asp-route-CategoryId="@item2.Id" class="dropdown-item">@item2.Name</a>
+                        @*<a asp-action="Index" asp-controller="News" asp-route-CategoryId="@item2.Id" class="dropdown-item">@item2.Name</a>*@
+                        <a href="/category/@item2.Slug"  class="dropdown-item">@item2.Name</a>
                     </li>
                     
                 }

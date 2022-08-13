@@ -56,6 +56,11 @@ namespace Application.Services.NewsServices.ShowNewsForCategory
                 query = query.Where(n => n.CategoryId == request.CategoryId);
             }
 
+            if (request.Slug is not null)
+            {
+                query = query.Where(n => n.Category.Slug == request.Slug);
+            }
+
             if (request.SortShowNews == SortShowNews.Newest)
             {
                 query = query.OrderBy(n => n.Id);
@@ -113,7 +118,7 @@ namespace Application.Services.NewsServices.ShowNewsForCategory
         public int PageIndex { get; set; } = 1;
         public string SearchKey { get; set; } = null!;
         public int? CategoryId { get; set; }
-
+        public string? Slug { get; set; }
         public string TagName { get; set; } = null!;
         public SortShowNews SortShowNews { get; set; } = SortShowNews.Newest;
 
