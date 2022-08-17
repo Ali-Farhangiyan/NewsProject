@@ -2,6 +2,7 @@
 using Application.Services.CommentServices.AddComment;
 using Application.Services.CommentServices.ChangeStatusComment;
 using Application.Services.CommentServices.DetailCommentForAdmin;
+using Application.Services.CommentServices.LikeOrDislikeComment;
 using Application.Services.CommentServices.ShowCommentForAdmin;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,8 @@ namespace Application.Services.CommentServices.CommentMainService
         IDetailCommentForAdminService DetailComment { get; }
 
         IChangeStatusCommentService ChangeStatus { get; }
+
+        ILikeOrDislikeCommentService LikeOrDislike { get; }
     }
 
     public class CommentService : ICommentService
@@ -57,5 +60,11 @@ namespace Application.Services.CommentServices.CommentMainService
         public IChangeStatusCommentService ChangeStatus =>
 
             changeStatus ?? new ChangeStatusCommentService(db);
+
+
+
+        private ILikeOrDislikeCommentService likeOrDislike;
+        public ILikeOrDislikeCommentService LikeOrDislike =>
+            likeOrDislike ?? new LikeOrDislikeCommentService(db);
     }
 }

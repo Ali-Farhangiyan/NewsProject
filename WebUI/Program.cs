@@ -55,11 +55,13 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute("detail","news/{Slug}",new { Controller = "News", Action = "Details" });
-app.MapControllerRoute("category","category/{Slug}",new { Controller = "News", Action = "Index" });
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute("detail","news/{Slug}",new { Controller = "News", Action = "Details" });
+app.MapControllerRoute("category","category/{Slug}",new { Controller = "News", Action = "Index" });
+
+
 
 app.Run();

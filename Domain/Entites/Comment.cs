@@ -10,6 +10,11 @@
 
         public string FullName { get; private set; } = null!;
 
+        public Comment? ParentComment { get; private set; }
+        public int? ParentCommentId { get; private set; }
+
+        public ICollection<Comment>? Replies { get; private set; }
+
         public DateTime DateOfRegisteryComment { get; private set; } = DateTime.Now;
 
         public StatusComment StatusComment { get; private set; } = StatusComment.Waiting;
@@ -41,8 +46,9 @@
             // ef
         }
 
-        public Comment(string body, string email, int newsId, string fullName)
+        public Comment(int? parentCommentId,string body, string email, int newsId, string fullName)
         {
+            ParentCommentId = parentCommentId;
             FullName = fullName;
             Body = body;
             Email = email;

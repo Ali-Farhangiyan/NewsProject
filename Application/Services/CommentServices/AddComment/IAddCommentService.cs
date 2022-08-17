@@ -30,11 +30,11 @@ namespace Application.Services.CommentServices.AddComment
         {
             var user = await identityDb.Users.FirstOrDefaultAsync(u => u.Id == comment.UserId);
 
-            var news = await db.News.FindAsync(comment.NewsId);
+            var news = await db.News.FirstOrDefaultAsync(n => n.Slug == comment.Slug);
 
             if (user is null || news is null) return false;
 
-            var newComment = new Comment(comment.Body, user.Email, comment.NewsId, user.FullName);
+            var newComment = new Comment(comment.ParentCommentId,comment.Body, user.Email, comment.NewsId, user.FullName);
 
             await db.Comments.AddAsync(newComment);
             var result = await db.SaveChangesAsync();
@@ -50,6 +50,10 @@ namespace Application.Services.CommentServices.AddComment
     public class AddCommentDto
     {
         public int NewsId { get; set; }
+
+        public int? ParentCommentId { get; set; }
+
+        public string? Slug { get; set; }
 
         public string UserId { get; set; } = null!;
 

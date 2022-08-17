@@ -57,15 +57,29 @@ namespace WebUI.Controllers
             {
                 ViewData["SuccessComment"] = "Your comment has been successfully registered";
 
-                return RedirectToAction(nameof(Details), new { Id = comment.NewsId });
+                return RedirectToAction(nameof(Details), new { slug = comment.Slug });
             }
 
             ViewData["FaildComment"] = "There was a problem registering your comment";
-            return RedirectToAction(nameof(Details), new { Id = comment.NewsId });
+            return RedirectToAction(nameof(Details), new { slug = comment.Slug });
 
 
 
 
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> LikeAction(int Id,string Slug)
+        {
+            var result = await commentService.LikeOrDislike.LikeExecute(Id);
+            return new JsonResult(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DislikeAction(int Id, string Slug)
+        {
+            var result = await commentService.LikeOrDislike.DislikeExecute(Id);
+            return new JsonResult(result);
         }
     }
 }
