@@ -1,9 +1,7 @@
 ﻿@using Application.Services.NewsServices.ShowDetailsNews
 @model ShowDetailNewsDto
 
-@{
-    var i = 1;
-}
+
 <div class="container">
 
 
@@ -43,6 +41,64 @@
                     <img src="@item" class="img-fluid rounded">
                 </div>
             }
+
+
+            <h4>Image Slider</h4>
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+              <div class="carousel-indicators">
+
+                @for (var counterIndicator = 0; counterIndicator < Model.Images.Count ; counterIndicator++)
+                {
+                    
+                    if(@counterIndicator == 0)
+                    {
+                       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@counterIndicator" aria-label="Slide @counterIndicator+1" class="active" aria-current="true" ></button>
+                    }
+                    else
+                    {
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@counterIndicator" aria-label="Slide @counterIndicator+1"></button>
+
+                    }
+
+                    
+                }
+                
+              </div>
+              <div class="carousel-inner">
+
+
+                    @for (var counterSlide = 0; counterSlide < Model.Images.Count  ; counterSlide++)
+                    {
+
+                        
+                        if(@counterSlide == 0)
+                        {
+                            <div class="carousel-item active">
+                              <img src="@Model.Images[@counterSlide]" class="d-block w-100" alt="ali">
+                            </div>
+                        }
+                        else
+                        {
+                           <div class="carousel-item ">
+                              <img src="@Model.Images[@counterSlide]" class="d-block w-100" alt="ali">
+                            </div> 
+                        }
+
+                        
+                    }
+
+
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+
         </section>
 
         <aside class="col-sm-4">
@@ -98,7 +154,7 @@
 
         @foreach (var item in Model.Comments)
         {
-            <div  class="col-12" id="comment-@i" >
+            <div  class="col-12" id="comment" >
                 <div class="card">
                     <div class="card-header">
                         <h6 class="card-title">@item.FullName</h6>
@@ -126,7 +182,7 @@
             {
                 @foreach (var reply in item.Replies)
                 {
-                    <div  class="col-11 justify-content-end " id="comment-@i" >
+                    <div  class="col-11 justify-content-end " id="comment" >
                         <div class="card">
                             <div class="card-header">
                                 <h6 class="card-title text-muted"><i class="bi fs-5 text-muted bi-arrow-return-right"></i> Reply To <em>@item.FullName</em></h6>
@@ -197,20 +253,8 @@
     }
 
         function sendReply(event, parentCommentId) {
-            
-
-            //let output = `
-            //    <div class="p-3">
-            //        <button id="cancelii" class="btn btn-sm btn-outline-danger">Delete</button>
-            //        <textarea class="form-control" placeholder="enter your reply..."></textarea>
-            //        <button id="sendii" class="btn btn-sm btn-outline-success">Send Reply</button>
-            //    </div>
-            //`;
-
 
             let currentTag = event.target.parentElement.parentElement;
-
-
 
             let form = document.createElement('div');
             let textarea = document.createElement('textarea');
@@ -237,15 +281,6 @@
 
 
 
-
-
-
-
-            
-
-            
-
-
             button.addEventListener("click", () => {
                 $.ajax("/news/addcomment", {
                     url: "/news/addcomment",
@@ -263,100 +298,5 @@
             
         }// end sendReply function...
 
-
-
-        //let reply = document.querySelectorAll(".reply");
-        //console.log(reply);
-
-        ////reply.forEach(x => x.addEventListener("click",(e)=> console.log(e.target)))
-
-        //function insertAfter(referenceNode, newNode) {
-        //  referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-        //}
-
-
-        //reply.forEach(x => x.addEventListener("click", (e) => {
-        //    //console.log(e.target);
-
-        //    let currentTag = e.target;
-            
-        //    let form = document.createElement('div');
-        //    let textarea = document.createElement('textarea');
-        //    let button = document.createElement('button');
-        //    let buttonRemove = document.createElement('button');
-        //    buttonRemove.innerHTML = "Cancel";
-        //    buttonRemove.setAttribute("class", "btn btn-danger mb-2 cancel");
-        //    button.innerHTML = "Send";
-        //    button.setAttribute("class", "btn btn-success mt-2 send");
-        //    textarea.setAttribute("placeholder", "enter your reply comment");
-        //    form.setAttribute("class","p-3 primary-border")
-        //    textarea.className = "form-control";
-
-        //    let output = `
-        //        <div class="p-3">
-        //            <button class="btn btn-sm btn-outline-danger">Delete</button>
-        //            <textarea class="form-control" placeholder="enter your reply..."></textarea>
-        //            <button class="btn btn-sm btn-outline-success">Send Reply</button>
-        //        </div>
-        //    `;
-
-        //    form.append(buttonRemove,textarea,button);
-
-        //    currentTag.parentElement.parentElement.append(output)
-
-        //    buttonRemove.addEventListener("click", (e) => {
-        //        let cc = e.target.parentElement;
-        //        cc.remove();
-        //    })
-
-        //    button.addEventListener("click", (e) => {
-
-
-        //        //$.ajax("/news/addcomment", {
-        //        //    url: "/news/addcomment",
-        //        //    method: "POST",
-        //        //    data: {
-        //        //        "body": textarea.value,
-        //        //        "newsId": @Model.Id,
-        //        //        "slug": "@Model.Slug"
-        //        //    }
-        //        //});
-        //        let xhr = new XMLHttpRequest();
-
-        //        xhr.open("POST", "/news/addcomment", true);
-
-        //        //xhr.onload = () => {
-        //        //    if (xhr.status === 200) {
-        //        //         window.location.href = "/news/@Model.Slug";
-        //        //    }
-        //        //}
-
-        //        let bb = JSON.stringify({
-        //                "body": textarea.value,
-        //                "newsId": @Model.Id,
-        //                "slug": "@Model.Slug"
-        //            })
-
-        //        console.log(bb);
-        //        xhr.send(bb);
-
-        //        //fetch("/news/addcomment", {
-        //        //    method: "GET",
-        //        //    body: JSON.stringify({
-        //        //        "body": textarea.value,
-        //        //        "newsId": @Model.Id,
-        //        //        "slug": "@Model.Slug"
-        //        //    })
-        //        //});
-        //    })
-
-        //    //insertAfter(currentTag, form);
-        //}));
-
-
-
-        ////reply.addEventListener("click", (e) => {
-        ////    console.log(e.target);
-        ////});
     </script>
 }

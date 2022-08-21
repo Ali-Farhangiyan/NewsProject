@@ -27,7 +27,8 @@ namespace Application.Services.NewsServices.ShowDetailsNews
 
         public async Task<ShowDetailNewsDto> ExecuteAsync(string slug)
         {
-            var news = await db.News
+
+            var query = db.News
                 .Include(n => n.Category)
                 .ThenInclude(c => c.ParentCategory)
                 .Include(n => n.Images)
@@ -36,8 +37,12 @@ namespace Application.Services.NewsServices.ShowDetailsNews
                 .ThenInclude(c => c.ParentComment)
                 .ThenInclude(c => c.ParentComment)
                 .Include(n => n.Tags)
-                .Where(n => n.Slug == slug)
-                .Select(n => new ShowDetailNewsDto
+                .Where(n => n.Slug == slug);
+            
+            query.FirstOrDefault().IncreaseVisited();
+            await db.SaveChangesAsync();
+
+            var news = await query.Select(n => new ShowDetailNewsDto
                 {
                     Id = n.Id,
                     ImageTitle = n.ImageTitle,
@@ -46,32 +51,34 @@ namespace Application.Services.NewsServices.ShowDetailsNews
                     Images = n.Images.Where(i => i.NewsId == n.Id).Select(n => n.Src).ToList(),
                     Slug = n.Slug,
                     NewsBodies = n.NewsBodies.Where(nb => nb.NewsId == n.Id).Select(nb => new NewsBodyDto
-                    {
-                        TitleParagraph = nb.TitleParagraph,
-                        BodyParagraph = nb.BodyParagraph
-                    }).ToList(),
+                        {
+                            TitleParagraph = nb.TitleParagraph,
+                            BodyParagraph = nb.BodyParagraph
+                        }).ToList(),
                     Tags = n.Tags.Select(t => t.Name).ToList(),
                     Comments = n.Comments.Where(co => co.StatusComment == Domain.Entites.StatusComment.Accepted)
-                    .Select(c => new DetailCommentDto
-                    {
-                        Id = c.Id,
-                        FullName = c.FullName,
-                        Body = c.Body,
-                        DateOfRegisterTime = c.DateOfRegisteryComment,
-                        NumberOfDislike = c.NumberOfDisLikes,
-                        NumberOfLike = c.NumberOfLikes,
-                        Replies = c.Replies.Select( r => new DetailCommentDto
+                        .Select(c => new DetailCommentDto
                         {
-                            Id = r.Id,
-                            FullName = r.FullName,
-                            Body = r.Body,
-                            DateOfRegisterTime = r.DateOfRegisteryComment,
-                            NumberOfDislike = r.NumberOfDisLikes,
-                            NumberOfLike = r.NumberOfLikes,
-                        }).ToList()
+                            Id = c.Id,
+                            FullName = c.FullName,
+                            Body = c.Body,
+                            DateOfRegisterTime = c.DateOfRegisteryComment,
+                            NumberOfDislike = c.NumberOfDisLikes,
+                            NumberOfLike = c.NumberOfLikes,
+                            Replies = c.Replies.Select( r => new DetailCommentDto
+                            {
+                                Id = r.Id,
+                                FullName = r.FullName,
+                                Body = r.Body,
+                                DateOfRegisterTime = r.DateOfRegisteryComment,
+                                NumberOfDislike = r.NumberOfDisLikes,
+                                NumberOfLike = r.NumberOfLikes,
+                            }).ToList()
                     }).ToList()
                     
                 }).FirstOrDefaultAsync();
+
+            
 
             return news ?? null!;
 

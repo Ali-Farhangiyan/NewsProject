@@ -19,6 +19,8 @@
 
         public StatusComment StatusComment { get; private set; } = StatusComment.Waiting;
 
+
+        public List<LikeOrDislikeCommentUsers> LikeOrDislikeCommentUsers { get; private set; } = new List<LikeOrDislikeCommentUsers>();
         public int NumberOfLikes { get; private set; }
         public int NumberOfDisLikes { get; private set; }
 
@@ -31,13 +33,17 @@
             StatusComment = statusComment;
         }
 
+        
+
         public void IncreaseLikes()
         {
+            LikeOrDislikeCommentUsers.Add(new LikeOrDislikeCommentUsers(Email, Id));
             NumberOfLikes += 1;
         }
 
         public void IncreaseDisLikes()
         {
+            LikeOrDislikeCommentUsers.Add(new LikeOrDislikeCommentUsers(Email, Id));
             NumberOfDisLikes += 1;
         }
 

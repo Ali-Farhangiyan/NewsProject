@@ -16,6 +16,7 @@ namespace Application.Interfaces
         DbSet<Tags> Tags { get; set; }
         DbSet<Category> Categories { get; set; }
         DbSet<Image> Images { get; set; }
+        DbSet<LikeOrDislikeCommentUsers> LikeOrDislikeCommentUsers { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
         int SaveChanges();

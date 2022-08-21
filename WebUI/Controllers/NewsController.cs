@@ -69,16 +69,20 @@ namespace WebUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<JsonResult> LikeAction(int Id,string Slug)
         {
-            var result = await commentService.LikeOrDislike.LikeExecute(Id);
+            var userFind = await newsService.GetInfoUser.ExecuteAsync(ClaimUtility.GetUserId(User));
+            var result = await commentService.LikeOrDislike.LikeExecute(Id,userFind.Email);
             return new JsonResult(result);
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> DislikeAction(int Id, string Slug)
         {
-            var result = await commentService.LikeOrDislike.DislikeExecute(Id);
+            var userFind = await newsService.GetInfoUser.ExecuteAsync(ClaimUtility.GetUserId(User));
+            var result = await commentService.LikeOrDislike.DislikeExecute(Id,userFind.Email);
             return new JsonResult(result);
         }
     }

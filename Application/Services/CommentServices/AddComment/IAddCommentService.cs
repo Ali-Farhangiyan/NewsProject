@@ -31,8 +31,11 @@ namespace Application.Services.CommentServices.AddComment
             var user = await identityDb.Users.FirstOrDefaultAsync(u => u.Id == comment.UserId);
 
             var news = await db.News.FirstOrDefaultAsync(n => n.Slug == comment.Slug);
+            
 
             if (user is null || news is null) return false;
+
+            news.IncreaseHotNews();
 
             var newComment = new Comment(comment.ParentCommentId,comment.Body, user.Email, comment.NewsId, user.FullName);
 

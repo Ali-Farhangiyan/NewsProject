@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Services.HomeServices.HomeMainService;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebUI.Models;
 
@@ -7,15 +8,24 @@ namespace WebUI.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IHomeService homeService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IHomeService homeService)
         {
             _logger = logger;
+            this.homeService = homeService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var model = new HomeViewModel
+            {
+                HotNews = await homeService.HotNews(),
+                MostVisited = await homeService.MostVisited(),
+                LastNews = await homeService.LastNews(),
+                RandomNews = await homeService.RandomNews()
+            };
+            return View(model);
         }
 
         public IActionResult Privacy()

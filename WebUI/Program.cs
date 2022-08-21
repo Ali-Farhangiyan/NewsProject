@@ -1,6 +1,7 @@
 using Application.Interfaces;
 using Application.Services.CategoryServices.CategoryMainService;
 using Application.Services.CommentServices.CommentMainService;
+using Application.Services.HomeServices.HomeMainService;
 using Application.Services.NewsServices.NewsMainService;
 using Infrastructure.IdentityService;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,7 @@ builder.Services.AddTransient<IDatabaseContext, DatabaseContext>();
 builder.Services.AddTransient<INewsService, NewsService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 builder.Services.AddTransient<ICommentService, CommentService>();
+builder.Services.AddTransient<IHomeService, HomeService>();
 
 
 builder.Services.AddMyIdentityService(builder.Configuration);
